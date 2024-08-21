@@ -3,9 +3,11 @@
 
 #include <stdio.h>
 #include <unistd.h>
+#include <stdlib.h>
+#include <string.h>
 
 int main(void);
-void interpreter (void);
+int interpreter(void);
 
 
 #endif
