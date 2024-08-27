@@ -5,6 +5,8 @@
 #include <string.h>
 #include <sys/wait.h>
 
+#define MAX_COMM 10
+
 /**
  * interpreter - prompts a user to enter a command.
  * @x: pointer to arguments
@@ -15,10 +17,10 @@
 void interpreter(char **x, char **env)
 {
 	char *str = NULL;
-	int a, status;
+	int a, c, status;
 	size_t b = 0;
 	ssize_t num;
-	char *argv[] = {NULL, NULL};
+	char *argv[MAX_COMM];
 	pid_t ch_pid;
 
 	while (1)
@@ -37,7 +39,15 @@ void interpreter(char **x, char **env)
 				str[a] = 0;
 			a++;
 		}
-		argv[0] = str;
+
+		c = 0;
+		argv[c] = strtok(str, " ");
+		while (argv[c] != NULL)
+		{
+			c++;
+			argv[c] = strtok(NULL, " ");
+		}
+
 		ch_pid = fork();
 		if (ch_pid == -1)
 		{
