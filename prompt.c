@@ -35,6 +35,7 @@ void interpreter(char **x, char **env)
 		{
 			if (str[a] == '\n')
 				str[a] = 0;
+			a++;
 		}
 		argv[0] = str;
 		ch_pid = fork();
