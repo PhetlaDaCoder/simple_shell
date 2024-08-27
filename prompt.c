@@ -8,55 +8,48 @@
 /**
  * interpreter - prompts a user to enter a command.
  * @x: pointer to arguments
- * @y: pointer to enviroment variable
+ * @env: pointer to enviroment variable
  * Return: 0 when done.
  */
 
-void interpreter(char **x char **y)
+void interpreter(char **x, char **env)
 {
 	char *str = NULL;
-	size_t len = 0;
-	ssize_t read;
+	int a, status;
+	size_t b = 0;
+	ssize_t num;
+	char *argv[] = {NULL, NULL};
 	pid_t ch_pid;
-	int status;
 
 	while (1)
 	{
 		printf("$ ");
-
-		read = getline(&str, &len, stdin);
-		if (read == -1)
+		num = getline(&str, &b, stdin);
+		if (num == -1)
 		{
-			perror("getline");
 			free(str);
 			exit(EXIT_FAILURE);
 		}
-
-		if (str[read - 1] == '\n')
+		a = 0;
+		while (str[a])
 		{
-			str[read - 1] = '\0';
+			if (str[a] == '\n')
+				str[a] = 0;
 		}
-
+		argv[0] = str;
 		ch_pid = fork();
 		if (ch_pid == -1)
 		{
-			perror("fork errro");
 			free(str);
 			exit(EXIT_FAILURE);
 		}
-
 		if (ch_pid == 0)
 		{
-
-			char *argv[] = {str, NULL};
-			execve(argv[0], argv, y);
-
-			perror("execve");
-			exit(EXIT_FAILURE);
+			if (execve(argv[0], argv, env) == -1)
+				printf("%s: No such file or directory\n", x[0]);
 		}
-
-		waitpid(ch_pid, &status, 0);
+		else
+			wait(&status);
 	}
-
-	free(str);
 }
+

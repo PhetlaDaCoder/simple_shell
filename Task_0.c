@@ -2,12 +2,12 @@
 #include <stdio.h>
 
 /**
- * main - prints a-
+ * a_z - prints from a to z
  * letter: arguments
  * Return: 0 if successful
  */
 
-int main(void)
+int a_z(void)
 {
 	char letter;
 
