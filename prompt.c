@@ -9,10 +9,12 @@
 
 /**
  * interpreter - prompts a user to enter a command.
+ *
  * @x: pointer to arguments.
+ *
  * @env: pointer to enviroment variable.
  *
- * Return: 0 when done.
+ * Return: void
  */
 
 void interpreter(char **x, char **env)
@@ -38,6 +40,11 @@ void interpreter(char **x, char **env)
 
 		par_command(str, argv);
 
+		if (argv[0] == NULL)
+		{
+			continue;
+		}
+
 		ch_pid = fork();
 		if (ch_pid == -1)
 		{
@@ -51,7 +58,7 @@ void interpreter(char **x, char **env)
 		}
 		else
 		{
-			wait(&status);
+			waitpid(ch_pid, &status, 0);
 		}
 	}
 	free(str);
