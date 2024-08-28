@@ -1,4 +1,5 @@
 #include "shell.h"
+
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -74,7 +75,7 @@ ssize_t user_input(char **str, size_t *b)
 
 void execute_command(char **argv, char **env, char **x)
 {
-	char *path = find_path(argv[0], env, x);
+	char *path = path_command(argv[0], env, x);
 
 	pid_t ch_pid;
 	int status;

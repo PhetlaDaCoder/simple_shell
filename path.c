@@ -13,7 +13,7 @@
  * Return: Null.
  */
 
-char *find_path(char **cmd)
+char path_command(char *cmd)
 {
 	char *path_env;
 	char *path;
