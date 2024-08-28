@@ -14,11 +14,11 @@
 void interpreter(char **x, char **env);
 int main(int x, char **y, char **env);
 int a_z(void);
-void exec_command(char **argv, char **env, char **x);
+void exec_command(char **argv, char **env);
 void par_command(char *str, char *argv[]);
 ssize_t user_input(char **str, size_t *b);
-void execute_command(char **argv, char **env, char **x);
-char path_command(char *cmd);
+void execute_command(char **argv, char **env);
+char *path_command(const char *cmd);
 
 
 #endif

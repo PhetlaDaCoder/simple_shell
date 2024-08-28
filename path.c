@@ -13,7 +13,7 @@
  * Return: Null.
  */
 
-char path_command(char *cmd)
+char *path_command(const char *cmd)
 {
 	char *path_env;
 	char *path;
@@ -25,7 +25,7 @@ char path_command(char *cmd)
 	if (path_env == NULL)
 	{
 		fprintf(stderr, "PATH not found.\n");
-		return (NULL);
+		return NULL;
 	}
 
 	path = strdup(path_env);
@@ -41,7 +41,7 @@ char path_command(char *cmd)
 	while (dir != NULL)
 	{
 		
-		snprintf(full_path, sizeof(full_path), "%s/%s ", dir, *cmd);
+		snprintf(full_path, sizeof(full_path), "%s/%s ", dir, cmd);
 		if (access(full_path, X_OK) == 0)
 		{
 			free(path);
@@ -51,6 +51,6 @@ char path_command(char *cmd)
 	}
 
 	free(path);
-	return (NULL);
+	return NULL;
 }
 

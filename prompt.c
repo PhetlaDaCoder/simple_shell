@@ -73,9 +73,9 @@ ssize_t user_input(char **str, size_t *b)
  * @x: array of arguments for error.
  */
 
-void execute_command(char **argv, char **env, char **x)
+void execute_command(char **argv, char **env)
 {
-	char *path = path_command(argv[0], env, x);
+	char *path = path_command(argv[0], env);
 
 	pid_t ch_pid;
 	int status;
@@ -96,7 +96,7 @@ void execute_command(char **argv, char **env, char **x)
 	if (ch_pid == 0)
 	{
 		argv[0] = path;
-		exec_command(argv, env, x);
+		exec_command(argv, env);
 	}
 	else
 	{
@@ -137,7 +137,7 @@ void par_command(char *str, char *argv[])
  * @x: second argument.
 I */
 
-void exec_command(char **argv, char **env, char **x)
+void exec_command(char **argv, char **env)
 {
 	if (execve(argv[0], argv, env) == -1)
 	{
