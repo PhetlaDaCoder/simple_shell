@@ -74,8 +74,15 @@ ssize_t user_input(char **str, size_t *b)
 
 void execute_command(char **argv, char **env, char **x)
 {
+	char *path = find_path(argv[0], env);
+
 	pid_t ch_pid;
-	int status;
+
+	if (path == NULL)
+	{
+		fprintf(stderr, "%s; command not found\n", argv[0]);
+		return ();
+	}
 
 	ch_pid = fork();
 	if (ch_pid == -1)
@@ -86,11 +93,13 @@ void execute_command(char **argv, char **env, char **x)
 
 	if (ch_pid == 0)
 	{
+		argv[0] = path;
 		exec_command(argv, env, x);
 	}
 	else
 	{
 		waitpid(ch_pid, &status, 0);
+		free(path);
 	}
 }
 
@@ -130,7 +139,7 @@ void exec_command(char **argv, char **env, char **x)
 {
 	if (execve(argv[0], argv, env) == -1)
 	{
-		fprintf(stderr, "%s: No such file or directory\n", x[0]);
+		perror("execve");
 		exit(EXIT_FAILURE);
 	}
 }
