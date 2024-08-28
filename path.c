@@ -40,7 +40,8 @@ char *find_path(char **cmd)
 
 	while (dir != NULL)
 	{
-		snprintf(full_path, sizeof(full_path), "%s/%s", dir, cmd);
+		
+		snprintf(full_path, sizeof(full_path), "%s/%s ", dir, *cmd);
 		if (access(full_path, X_OK) == 0)
 		{
 			free(path);
