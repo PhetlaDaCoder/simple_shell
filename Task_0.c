@@ -2,9 +2,9 @@
 #include <stdio.h>
 
 /**
- * a_z - prints from a to z
- * letter: arguments
- * Return: 0 if successful
+ * a_z - prints from a to z.
+ *
+ * Return: 0 if successful.
  */
 
 int a_z(void)
