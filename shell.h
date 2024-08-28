@@ -9,6 +9,7 @@
 #include <sys/wait.h>
 
 #define MAX_COMM 10
+#define find_path
 
 void interpreter(char **x, char **env);
 int main(int x, char **y, char **env);

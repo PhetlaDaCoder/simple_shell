@@ -74,14 +74,15 @@ ssize_t user_input(char **str, size_t *b)
 
 void execute_command(char **argv, char **env, char **x)
 {
-	char *path = find_path(argv[0], env);
+	char *path = find_path(argv[0], env, x);
 
 	pid_t ch_pid;
+	int status;
 
 	if (path == NULL)
 	{
 		fprintf(stderr, "%s; command not found\n", argv[0]);
-		return ();
+		return;
 	}
 
 	ch_pid = fork();
@@ -133,7 +134,7 @@ void par_command(char *str, char *argv[])
  * @env:enviroment variable.
  *
  * @x: second argument.
- */
+I */
 
 void exec_command(char **argv, char **env, char **x)
 {
