@@ -21,47 +21,67 @@ void interpreter(char **x, char **env)
 {
 	char *str = NULL;
 	size_t b = 0;
-	ssize_t num;
 	char *argv[MAX_COMM];
-	pid_t ch_pid;
-	int status;
+	ssize_t num;
 
 	while (1)
 	{
-		printf("$ ");
-		num = getline(&str, &b, stdin);
+		num = user_input(&str, &b);
 		if (num == -1)
 		{
 			free(str);
 			exit(EXIT_FAILURE);
 		}
 
-		str[strcspn(str, "\n")] = '\0';
-
 		par_command(str, argv);
 
-		if (argv[0] == NULL)
+		if (argv[0] != NULL)
 		{
-			continue;
-		}
-
-		ch_pid = fork();
-		if (ch_pid == -1)
-		{
-			free(str);
-			perror("fork");
-			exit(EXIT_FAILURE);
-		}
-		if (ch_pid == 0)
-		{
-			exec_command(argv, env, x);
-		}
-		else
-		{
-			waitpid(ch_pid, &status, 0);
+			execute_command(argv, env, x);
 		}
 	}
 	free(str);
+}
+
+/**
+ * user_input - displays prompt and reads input.
+ * @str: pointer to input string.
+ * @b: pointer to buffer size.
+ *
+ * Return: toal bytes or -1 if failed.
+ */
+ssize_t user_input(char **str, size_t *b)
+{
+	printf("$ ");
+	return (getline(str, b, stdin));
+}
+
+/**
+ * execute_command - forks process and executes command.
+ * @argv: arguments array.
+ * @env: enviroment variable.
+ * @x: array of arguments for error.
+ */
+
+void execute_command(char **argv, char **env, char **x)
+{
+	pid_t ch_pid;
+	int status;
+
+	ch_pid = fork();
+	if (ch_pid == -1)
+	{
+		perror("forik");
+		exit(EXIT_FAILURE);
+	}
+	if (ch_pid == 0)
+	{
+		exec_command(argv, env, x);
+	}
+	else
+	{
+		waitpid(ch_pid, &status, 0);
+	}
 }
 
 /**
@@ -75,6 +95,8 @@ void interpreter(char **x, char **env)
 void par_command(char *str, char *argv[])
 {
 	int c = 0;
+
+	c = 0;
 
 	argv[c] = strtok(str, " ");
 	while (argv[c] != NULL && c < MAX_COMM - 1)
