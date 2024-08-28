@@ -7,6 +7,7 @@
 
 #define MAX_COMM 10
 
+
 /**
  * interpreter - prompts a user to enter a command.
  *
@@ -29,8 +30,15 @@ void interpreter(char **x, char **env)
 		num = user_input(&str, &b);
 		if (num == -1)
 		{
+			perror("getline");
 			free(str);
 			exit(EXIT_FAILURE);
+		}
+
+		if (str[num - 1] == '\n')
+		{
+			str[num - 1] = '\0';
+
 		}
 
 		par_command(str, argv);
@@ -42,6 +50,7 @@ void interpreter(char **x, char **env)
 	}
 	free(str);
 }
+
 
 /**
  * user_input - displays prompt and reads input.
@@ -71,9 +80,10 @@ void execute_command(char **argv, char **env, char **x)
 	ch_pid = fork();
 	if (ch_pid == -1)
 	{
-		perror("forik");
+		perror("fork");
 		exit(EXIT_FAILURE);
 	}
+
 	if (ch_pid == 0)
 	{
 		exec_command(argv, env, x);
