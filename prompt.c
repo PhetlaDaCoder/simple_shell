@@ -78,7 +78,8 @@ void par_command(char *str, char *argv[])
 /**
  * exec_command - handles execve call and error handling
  * @argv: first argument
- * @env: second argument
+ * @env:enviroment variable
+ * @x: second argument
  */
 
 void exec_command(char **argv, char **env, char **x)
