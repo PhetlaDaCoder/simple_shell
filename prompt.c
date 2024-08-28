@@ -9,8 +9,9 @@
 
 /**
  * interpreter - prompts a user to enter a command.
- * @x: pointer to arguments
- * @env: pointer to enviroment variable
+ * @x: pointer to arguments.
+ * @env: pointer to enviroment variable.
+ *
  * Return: 0 when done.
  */
 
@@ -57,9 +58,11 @@ void interpreter(char **x, char **env)
 }
 
 /**
- * par_command - splits input string to arguments
- * @str: first string
- * @argv: second string
+ * par_command - splits input string to arguments.
+ *
+ * @str: first string.
+ *
+ * @argv: second string.
  */
 
 void par_command(char *str, char *argv[])
@@ -76,10 +79,12 @@ void par_command(char *str, char *argv[])
 }
 
 /**
- * exec_command - handles execve call and error handling
- * @argv: first argument
- * @env:enviroment variable
- * @x: second argument
+ * exec_command - handles execve call and error handling.
+ * @argv: first argument.
+ *
+ * @env:enviroment variable.
+ *
+ * @x: second argument.
  */
 
 void exec_command(char **argv, char **env, char **x)
