@@ -19,7 +19,7 @@
 extern char **environ;
 
 
-int a_z(void);
+int printAlpha(void);
 void prompt(void);
 char *strcpy(char *desti, const char *sou);
 ssize_t get_line(char **line, size_t *p, FILE *obj;

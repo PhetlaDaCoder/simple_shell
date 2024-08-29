@@ -2,14 +2,13 @@
 #include <stdio.h>
 
 /**
- * a_z - prints from a to z.
+ * printAlpha - prints from a to z.
  *
  * Return: 0 if successful.
  */
 
-int a_z(void)
+int printAlpha(void)
 {
-
 	char letter;
 
 	for (letter = 'a'; letter <= 'z'; letter++)
