@@ -18,7 +18,7 @@ int main(void)
 			exec_command(args);
 		}
 
-		for (args[i] != NULL; i++)
+		for (i = 0; args[i] != NULL; i++)
 		{
 			free(args[i]);
 		}
