@@ -117,13 +117,17 @@ void exec_command(char **args)
 }
 
 /**
- * sigchld_handler - a function that runs processes.
- * @signum - arguments
+ * sigchld_handler - a function that runs a processes.
+ * @signum: pointer to signal
  */
+
 void sigchld_handler(int signum)
 {
 	(void)signum;
 
-	while (waitpid(-1, NULL, WNOHANG) > 0);
+	do {
+
+	} while (waitpid(-1, NULL, WNOHANG) > 0);
+
 }
 

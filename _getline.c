@@ -46,7 +46,7 @@ static char *allocate_initial_buffer(size_t *size)
  * @buff: second argument
  */
 
-static void resize_buffer(char **line, size_t *size, size_t *buff)
+static void resize_buffer(char **line, size_t *buff)
 {
 	char *tmp;
 
@@ -82,7 +82,7 @@ static ssize_t read_line(char **line, size_t *size, FILE *stream)
 
 		if (read == (ssize_t)(buff - 1))
 		{
-			resize_buffer(line, size, &buff);
+			resize_buffer(line, &buff);
 		}
 
 		if (a == '\n')

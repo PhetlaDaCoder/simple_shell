@@ -12,7 +12,7 @@
  * Return: Pointer to copied string of NULL if failed.
  */
 
-static char *get_path_copy(void)
+char *get_path_copy(void)
 {
 	char *path = getenv("PATH");
 	char *path_cp;
@@ -40,7 +40,7 @@ static char *get_path_copy(void)
  * Return: pointer to constructed path or NULL if failure.
  */
 
-static char *construct_full_path(char *dir, char *command)
+char *construct_full_path(char *dir, char *command)
 {
 	char *f_path;
 	int comm_len;
@@ -77,12 +77,12 @@ char *path_command(char *command)
 	char *f_path;
 	struct stat buf;
 
-	*path_cp = get_path_copy();
+	path_cp = get_path_copy();
 
 	if (!path_cp)
 		return (NULL);
 
-	path_tok = strtok(path_cp, ":");
+	path_tok = str_tok(path_cp, ":");
 	while (path_tok != NULL)
 	{
 		f_path = construct_full_path(path_tok, command);

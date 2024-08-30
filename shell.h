@@ -12,7 +12,9 @@
 #include <errno.h>
 #include <limits.h>
 #include <stddef.h>
+
 #define BUFFER_SIZE 1024
+
 extern char **environ;
 
 
@@ -33,10 +35,10 @@ char **parse_input(char *input, size_t *count);
 void exec_command(char **args);
 void sigchld_handler(int signum);
 int main(void);
-static void handle_memory_error(void);
-static char *get_path_copy(void);
+
+
 ssize_t _getline(char **line, size_t *size, FILE *stream);
-static char *construct_full_path(char *dir, char *command);
+
 
 
 #endif
