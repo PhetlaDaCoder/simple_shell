@@ -2,6 +2,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+/**
+ * main - main program.
+ * Return: 0 when done.
+ */
+
 int main(void)
 {
 	char **args;
@@ -12,8 +17,9 @@ int main(void)
 	while (1)
 	{
 		prompt_loop();
+		args = input();
 
-		if ((args = input()) && args[0] != NULL)
+		if (args != NULL  && args[0] != NULL)
 		{
 			exec_command(args);
 		}
@@ -25,5 +31,5 @@ int main(void)
 		free(args);
 	}
 
-	return 0;
+	return (0);
 }

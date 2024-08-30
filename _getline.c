@@ -42,7 +42,6 @@ static char *allocate_initial_buffer(size_t *size)
 /**
  * resize_buffer - a function that handles buffer size.
  * @line: character pointer.
- * @size: first argument
  * @buff: second argument
  */
 
