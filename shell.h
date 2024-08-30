@@ -33,5 +33,7 @@ char *str_to(char *str, const char *delim);
 int str_cmp(char *str1, char *str2);
 char *str_cpy(char *dest, char *src);
 char **parse_input(char *input, size_t *count);
-
+void exec_command(char **args);
+void sigchld_handler(int signum);
+int main(void);
 #endif

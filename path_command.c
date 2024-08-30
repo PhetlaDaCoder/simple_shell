@@ -8,7 +8,7 @@
 
 /**
  * path_command -a function that locates an enviroment path.
- * @com: command pointer.
+ * @command: command pointer.
  *
  * Return: pointer or NULL
  */
