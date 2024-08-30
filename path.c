@@ -47,7 +47,7 @@ char *path_command(char *command)
 		{
 			perror("malloc failure");
 			free(path_cp);
-			return(NULL);
+			return (NULL);
 		}
 
 		strcpy(f_path, path_tok);
