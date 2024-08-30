@@ -10,6 +10,55 @@
 #define BUFFER_SIZE 1024
 
 /**
+ * handle_memory_error - a function that handles memory error
+ */
+
+static void handle_memory_error(void)
+{
+	perror("Memory allocation failed");
+	exit(EXIT_FAILURE);
+}
+/**
+ * allocate_initial_buffer -  allocates buffer for reading a line.
+ * @size: Pointer to size of buffer.
+ *
+ * Return: Pointer to buffer.
+ */
+
+static char *allocate_initial_buffer(size_t *size)
+{
+	char *line;
+	*size = BUFFER_SIZE;
+	line = malloc(*size);
+	if (line == NULL)
+	{
+		handle_memory_error();
+	}
+
+	return (line);
+}
+
+/**
+ * resize_buffer - a function that handles buffer size.
+ * @line: character pointer.
+ * @size: first argument
+ * @buff: second argument
+ */
+
+static void resize_buffer(char **line, size_t *size, size_t *buff)
+{
+	char *tmp = realloc(*line, *buff + BUFFER_SIZE);
+
+	if (tmp == NULL)
+	{
+		handle_memory_error();
+	}
+
+	*line = tmp;
+	*buff += BUFFER_SIZE;
+}
+
+/**
  * get_line - reads a line from stdin or stream.
  *
  * @line: pointer to charecter.
@@ -21,53 +70,13 @@
 
 ssize_t get_line(char **line, size_t *size, FILE *stream)
 {
-
-	size_t buff = 0;
-	ssize_t read = 0;
-	int a;
-
 	if (line == NULL)
 		return (-1);
 
 	if (*line == NULL || *size == 0)
 	{
-		buff = BUFFER_SIZE;
-		*line = malloc(buff);
-
-		if (*line == NULL)
-		{
-			perror("Memory allocation failed");
-			exit(EXIT_FAILURE);
-		}
-
-		*size = buff;
+		*line = allocate_initial_buffer(size);
 	}
 
-	while ((a = fgetc(stream)) != EOF)
-	{
-		(*line)[read++] = (char)a;
-
-		if (read == (ssize_t)(*size - 1))
-		{
-			char *tmp = realloc(*line, buff + BUFFER_SIZE);
-
-			if (tmp == NULL)
-			{
-				perror("Memory allocation failed");
-				exit(EXIT_FAILURE);
-			}
-
-			*line = tmp;
-			*size += BUFFER_SIZE;
-		}
-
-		if (a == '\n')
-			break;
-	}
-
-	if (read == 0 && a == EOF)
-		return (0);
-
-	(*line)[read] = '\0';
-	return (read);
+	return (read_line(line, size, stream));
 }

@@ -36,4 +36,7 @@ char **parse_input(char *input, size_t *count);
 void exec_command(char **args);
 void sigchld_handler(int signum);
 int main(void);
+static void handle_memory_error(void);
+
+
 #endif
