@@ -10,7 +10,8 @@
 #define BUFFER_SIZE 1024
 
 /**
- * get_line - reads a line from stdin or obj.
+ * get_line - reads a line from stdin or stream.
+ *
  * @line: pointer to charecter.
  * @size: pointter to length of line.
  * @stream: pointer o object.
@@ -18,7 +19,7 @@
  * Return: totals chars.
  */
 
-ssize_t get_line(char **line, size_t *size, FILE *stream);
+ssize_t get_line(char **line, size_t *size, FILE *stream)
 {
 
 	size_t buff = 0;

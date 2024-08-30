@@ -20,9 +20,9 @@ extern char **environ;
 
 
 int printAlpha(void);
-void prompt(void);
+void prompt_loop(void);
 char *str_tok(char *desti, const char *source);
-ssize_t get_line(char **line, size_t *p, FILE *stream);
+ssize_t getline(char **line, size_t *p, FILE *stream);
 int print_env(void);
 void exec(char **argv);
 char *path_command(char *command);

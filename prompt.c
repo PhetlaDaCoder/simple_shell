@@ -8,10 +8,11 @@
 #include <sys/wait.h>
 
 /**
- * prompt - prompts user for input
+ * prompt_loop - prompts user for input
+ *
  */
 
-void prompt(void)
+void prompt_loop(void)
 {
 	write(STDOUT_FILENO, "$ ", 2);
 }

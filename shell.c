@@ -29,15 +29,15 @@ char *str_tok(char *desti, const char *source)
 }
 
 /**
- * get_line - reads a line from stdin or obj.
+ * getline - reads a line from stdin or stream.
  * @line: pointer to charecter.
  * @p: pointter to length of line.
- * @obj: pointer o object.
+ * @stream: pointer o object.
  *
  * Return: totals chars.
  */
 
-ssize_t get_line(char **line, size_t *size, FILE *stream)
+ssize_t getline(char **line, size_t *size, FILE *stream)
 {
 	size_t buff = 0;
 	ssize_t read = 0;
@@ -90,10 +90,10 @@ ssize_t get_line(char **line, size_t *size, FILE *stream)
 }
 
 /**
- * prompt - prompts user for input.
+ * prompt_loop - prompts user for input.
  */
 
-void prompt(void)
+void promp_loop(void)
 {
 	write(STDOUT_FILENO, "$ ", 2);
 }
@@ -138,7 +138,7 @@ char **input(void)
 	size_t arg_count = 0, len = 0;
 	char *u_input = NULL, **args = NULL;
 
-	back = get_line(&u_input, &len, stdin);
+	back = getline(&u_input, &len, stdin);
 
 	if (back == -1)
 	{
