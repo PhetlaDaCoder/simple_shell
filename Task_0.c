@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 /**
- * printAlpha - prints from a to z.
+ * printAlpha - prints from 'a' to 'z'.
  *
  * Return: 0 if successful.
  */
@@ -17,6 +17,7 @@ int printAlpha(void)
 
 	}
 	printf("\n");
+
 	return (0);
 
 }
