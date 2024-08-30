@@ -21,16 +21,17 @@ extern char **environ;
 
 int printAlpha(void);
 void prompt(void);
-char *strcpy(char *desti, const char *sou);
-ssize_t get_line(char **line, size_t *p, FILE *obj);
+char *str_cpy(char *desti, const char *source);
+ssize_t get_line(char **line, size_t *p, FILE *stream);
 int print_env(void);
 void exec(char **argv);
-char *path_command(char *com);
-char *strcat(char *desti, char *sou);
-int strlen(char *string);
-unsigned int vali_char(char t, const char *string);
-char *str_to(char *st, const char *dlim);
-int strcmp(char *string1, char *string2);
-char *strcpy(char *desti, char *sou);
+char *path_command(char *command);
+char *str_cat(char *dest, char *src);
+int str_lien(char *string);
+unsigned int vali_char(char ch, const char *str);
+char *str_to(char *str, const char *delim);
+int str_cmp(char *str1, char *str2);
+char *str_cpy(char *dest, char *src);
+char **parse_input(char *int, size_t *count);
 
 #endif

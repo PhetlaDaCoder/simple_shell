@@ -12,30 +12,30 @@
 
 /**
  * strcat - joins two strings.
- * @desti: pointer destination.
- * @sou: pointer source.
+ * @dest: pointer destination.
+ * @src: pointer source.
  *
  * Return: void
  */
 
-char *strcat(char *desti, char *sou)
+char *str_cat(char *dest, char *src)
 {
 	int n = 0;
 	int m = 0;
 
-	while (desti[n] != '\0')
+	while (dest[n] != '\0')
 	{
 		n++;
 	}
 
-	while (sou[m] != '\0')
+	while (src[m] != '\0')
 	{
-		desti[n] = sou[m];
+		dest[n] = src[m];
 		n++;
 		m++;
 	}
 
-	desti[n] = '\0';
-	return (desti);
+	dest[n] = '\0';
+	return (dest);
 }
 

@@ -18,7 +18,7 @@
  * Return: total length.
  */
 
-int strlen(char *string)
+int str_len(char *string)
 {
 	int len = 0;
 

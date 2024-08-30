@@ -12,22 +12,22 @@
 
 /**
  * strcmp - compares string values.
- * @string1: first string.
- * @string2: second string.
+ * @str1: first string.
+ * @str2: second string.
  *
  * Return: total string.
  */
 
-int strcmp(char *string1, char *string2)
+int str_cmp(char *str1, char *str2)
 {
 	int n;
 
 	n = 0;
-	while (string1[n] != '\0' && string2[n] != '\0')
+	while (str1[n] != '\0' && str2[n] != '\0')
 	{
-		if (string1[n] != string2[n])
+		if (str1[n] != str2[n])
 		{
-			return (string1[n] - string2[n]);
+			return (str1[n] - str2[n]);
 		}
 		n++;
 	}

@@ -12,19 +12,19 @@
 
 /**
  * vali_char - a function that validates charecters in a string.
- * @t: character to validate.
- * @string: string to find.
+ * @ch: character to validate.
+ * @str: string to find.
  *
  * Return: 1 if true or 0 if false.
  */
 
-unsigned int vali_char(char t, const char *string)
+unsigned int vali_char(char ch, const char *str)
 {
 	unsigned int i = 0;
 
-	while (string[i] != '\0')
+	while (str[i] != '\0')
 	{
-		if (t == *string)
+		if (ch == *str)
 			return (1);
 		i++;
 	}
@@ -33,30 +33,30 @@ unsigned int vali_char(char t, const char *string)
 }
 
 /**
- * str_tok - custom strtok func.
- * @st: string to be tokenized
- * @dlim: delimeter chars.
+ * str_to - custom strtok func.
+ * @str: string to be tokenized
+ * @delim: delimeter chars.
  *
  * Return: pointer to token or NULL.
  */
 
-char *str_tok(char *st, const char *dlim);
-char *str_tok(char *st, const char *dlim)
+char *str_to(char *str, const char *delim);
+char *str_to(char *str, const char *delim)
 {
 	static char *las;
 	static char *tok;
 	unsigned int j = 0;
 
-	if (st != NULL)
-		las = st;
+	if (str != NULL)
+		las = str;
 
 	tok = las;
 
 	if (tok == NULL)
 		return (NULL);
-	while (last[j] != '\0')
+	while (las[j] != '\0')
 	{
-		if (vali_char(las[j], dlim) == 0)
+		if (vali_char(las[j], delim) == 0)
 			break;
 		j++;
 	}
@@ -68,24 +68,23 @@ char *str_tok(char *st, const char *dlim)
 	}
 
 	tok = las + j;
-	las = token;
+	las = tok;
 
 	j = 0;
 
 	while (las[j] != '\0')
 	{
-		if (vali_vahr(las[j], dlim) == 1)
+		if (vali_char(las[j], delim) == 1)
 			break;
 		j++;
 	}
 
-	if (las[j] == '\0';
-		last = NULL;
-
+	if (las [j] == '\0')
+		las = NULL;
 	else
 	{
-		las[j] = '\0';
-		las = las + j + 1;
+		las [j] = '\0';
+		las = las +j + 1;
 		if (*las == '\0')
 			las = NULL;
 	}

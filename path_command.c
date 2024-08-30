@@ -13,8 +13,8 @@
  * Return: pointer or NULL
  */
 
-char *path_command(char *com);
-char *path_command(char *com)
+char *path_command(char *command);
+char *path_command(char *command)
 {
 	char *path = NULL, *path_cp = NULL, *f_path = NULL, *path_tok = NULL;
 	int comm_len = 0, dir_len = 0;
@@ -32,13 +32,13 @@ char *path_command(char *com)
 	{
 		path_cp = strdup(path);
 
-		if (path_sp == NULL)
+		if (path_cp == NULL)
 		{
 			perror("strdup failed");
 			return (NULL);
 		}
 
-		comm_len = strlen(com);
+		comm_len = strlen(command);
 
 		path_tok = strtok(path_cp, ":");
 
@@ -57,12 +57,12 @@ char *path_command(char *com)
 
 			strcpy(f_path, path_tok);
 			strcat(f_path, "/");
-			strcat(f_path, com);
+			strcat(f_path, command);
 		}
 
 			if (stat(f_path, &buf) == 0)
 			{
-				return (strdup(com));
+				return (strdup(command));
 			}
 	}
 }

@@ -17,13 +17,13 @@
  * Return: Null.
  */
 
-char *strcpy(char *desti, const char *sou)
+char *str_cpy(char *desti, const char *source)
 {
 	char *point = desti;
 
-	if (desti == NULL || sou == NULL)
+	if (desti == NULL || source == NULL)
 		return (NULL);
-	while ((*desti++ = *sou++))
+	while ((*desti++ = *source++))
 		;
 	return (point);
 }
@@ -37,8 +37,8 @@ char *strcpy(char *desti, const char *sou)
  * Return: totals chars.
  */
 
-ssize_t get_line(char **line, size_t *p, FILE *obj);
-ssize_t get_line(char **line, size_t *p, FILE *obj)
+ssize_t get_line(char **line, size_t *size, FILE *stream);
+ssize_t get_line(char **line, size_t *size, FILE *stream)
 {
 	size_t buff = 0;
 	ssize_t read = 0;
@@ -58,14 +58,14 @@ ssize_t get_line(char **line, size_t *p, FILE *obj)
 			exit(EXIT_FAILURE);
 		}
 
-		*p = buff;
+		*size = buff;
 	}
 
-	while ((a = fgetc(obj)) != EOF)
+	while ((a = fgetc(stream)) != EOF)
 	{
 		(*line)[read++] = (char)a;
 
-		if (read == (ssize_t) (*p - 1))
+		if (read == (ssize_t) (*size - 1))
 		{
 			char *tmp = realloc(*line, buff + BUFFER_SIZE);
 
@@ -76,7 +76,7 @@ ssize_t get_line(char **line, size_t *p, FILE *obj)
 			}
 
 			*line = tmp;
-			*p += BUFFER_SIZE;
+			*size += BUFFER_SIZE;
 		}
 
 		if (a == '\n')
@@ -99,14 +99,14 @@ void prompt(void)
 }
 
 /**
- * char **parse_input - parses input
- * @inp: user input
+ * **parse_input - parses input
+ * @int: user input
  * @count: total arguments
  *
  * Return: argumensts.
  */
 
-char **parse_input(char *inp, size_t *count)
+char **parse_input(char *int, size_t *count)
 {
 	char **arg = NULL;
 
@@ -156,4 +156,4 @@ char **input(void)
 
 	return (args);
 
-
+}

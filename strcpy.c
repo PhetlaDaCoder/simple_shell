@@ -12,26 +12,26 @@
 
 /**
  * char *strcpy - function that copies string.
- * @desti: to destination
- * @sou: source to copy from.
+ * @dest: to destination
+ * @src: source to copy from.
  *
  * Return: the string.
  */
 
-char *strcpy(char *desti, char *sou)
+char *str_cpy(char *dest, char *src)
 {
 	int j = 0;
 	int i = 0;
 
-	while (*(sou + j) != '\0')
+	while (*(src + j) != '\0')
 	{
 		j++;
 	}
 	for ( ; i < j ; i++)
 	{
-		desti[i] = sou[i];
+		dest[i] = src[i];
 	}
-	desti[j] = '\0';
-	return (desti);
+	dest[j] = '\0';
+	return (dest);
 }
 

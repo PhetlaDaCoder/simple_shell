@@ -12,14 +12,14 @@
 /**
  * get_line - reads a line from stdin or obj.
  * @line: pointer to charecter.
- * @p: pointter to length of line.
+ * @size: pointter to length of line.
  * @obj: pointer o object.
  *
  * Return: totals chars.
  */
 
-ssize_t get_line(char **line, size_t *p, FILE *obj);
-ssize_t get_line(char **line, size_t *p, FILE *obj)
+ssize_t get_line(char **line, size_t *size, FILE *stream);
+ssize_t get_line(char **line, size_t *size, FILE *stream)
 {
 	size_t buff = 0;
 	ssize_t read = 0;
@@ -39,14 +39,14 @@ ssize_t get_line(char **line, size_t *p, FILE *obj)
 			exit(EXIT_FAILURE);
 		}
 
-		*p = buff;
+		*size = buff;
 	}
 
-	while ((a = fgetc(obj)) != EOF)
+	while ((a = fgetc(stream)) != EOF)
 	{
 		(*line)[read++] = (char)a;
 
-		if (read == (ssize_t)(*p - 1))
+		if (read == (ssize_t)(*size - 1))
 		{
 			char *tmp = realloc(*line, buff + BUFFER_SIZE);
 
@@ -57,7 +57,7 @@ ssize_t get_line(char **line, size_t *p, FILE *obj)
 			}
 
 			*line = tmp;
-			*p += BUFFER_SIZE;
+			*size += BUFFER_SIZE;
 		}
 
 		if (a == '\n')

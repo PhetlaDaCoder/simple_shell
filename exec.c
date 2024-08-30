@@ -36,6 +36,6 @@ void exec(char **argv)
 			free(intial_command);
 			return;
 		}
-		free(intal_command);
+		free(intial_command);
 	}
 }
