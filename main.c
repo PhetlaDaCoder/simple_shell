@@ -11,12 +11,18 @@ int main(void)
 {
 	char **args;
 	size_t i;
+	int inter = isatty(STDIN_FILENO);
 
 	signal(SIGCHLD, sigchld_handler);
 
 	while (1)
 	{
+		if (inter)
+		{
+
 		prompt_loop();
+		}
+
 		args = input();
 
 		if (args != NULL  && args[0] != NULL)
@@ -29,6 +35,11 @@ int main(void)
 			free(args[i]);
 		}
 		free(args);
+
+		if (!inter)
+		{
+			break;
+		}
 	}
 
 	return (0);

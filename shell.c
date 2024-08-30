@@ -7,89 +7,6 @@
 #include <sys/wait.h>
 #include <signal.h>
 
-
-
-/**
- * str_tok - function that copies a string.
- * @desti: pointer destination.
- * @source: source pointer.
- *
- * Return: Null.
- */
-
-char *str_tok(char *desti, const char *source)
-{
-	char *point = desti;
-
-	if (desti == NULL || source == NULL)
-		return (NULL);
-	while ((*desti++ = *source++))
-		;
-	return (point);
-}
-
-/**
- * parse_input - parses input.
- * @input: user input
- * @count: total arguments.
- *
- * Return: argumensts.
- */
-
-char **parse_input(char *input, size_t *count)
-{
-	char **arg = NULL;
-	char *toke;
-
-	toke = str_tok(input, " \n");
-
-	while (toke != NULL)
-	{
-		arg = realloc(arg, (*count + 1) * sizeof(char *));
-		arg[*count] = strdup(toke);
-		(*count)++;
-
-		toke = str_tok(NULL, " \n");
-	}
-
-	arg = realloc(arg, (*count + 1) * sizeof(char *));
-	arg[*count] = NULL;
-
-	return (arg);
-}
-
-/**
- * input - reads user input
- *
- * Return: Arguments
- */
-char **input(void)
-{
-	ssize_t back;
-	size_t arg_count = 0, len = 0;
-	char *u_input = NULL, **args = NULL;
-
-	back = _getline(&u_input, &len, stdin);
-
-	if (back == -1)
-	{
-		free(u_input);
-		exit(EXIT_FAILURE);
-	}
-	else if (back == 0)
-	{
-		free(u_input);
-		exit(EXIT_SUCCESS);
-	}
-
-	args = parse_input(u_input, &arg_count);
-
-	free(u_input);
-
-	return (args);
-
-}
-
 /**
  * exec_command - handles commands.
  * @args: arguments
@@ -117,17 +34,57 @@ void exec_command(char **args)
 }
 
 /**
- * sigchld_handler - a function that runs a processes.
- * @signum: pointer to signal
+ * sigchld_handler - a function that runs processes.
+ * @signum:  argument
  */
 
 void sigchld_handler(int signum)
 {
-	(void)signum;
-
 	do {
 
 	} while (waitpid(-1, NULL, WNOHANG) > 0);
-
 }
 
+/**
+ * main - main function of the program.
+ *
+ * Return: 0 if success or NULL.
+ */
+
+int main(void)
+{
+	char **args;
+	size_t i;
+	int inter = isatty(STDIN_FILENO);
+
+	signal(SIGCHLD, sigchld_handler);
+
+	while (1)
+	{
+		if (inter)
+		{
+			printf("cisfun$", 2);
+			fflush(stdout);
+		}
+
+		args = input();
+
+		if (args != NULL && args[0] != NULL)
+		{
+			exec_command(args[i]);
+		}
+
+		for (i = 0; args != NULL && args[i] != NULL; i++)
+		{
+			free(args[i]);
+		}
+		free(args);
+
+		if (inter)
+		{
+			break;
+		}
+	}
+
+	return (0);
+}
