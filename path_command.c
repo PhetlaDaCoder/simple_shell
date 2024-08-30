@@ -23,50 +23,47 @@ char *path_command(char *command)
 
 	if (!path)
 	{
-		perror("getenv failed");
+		perror("getenv failure");
 		return (NULL);
 	}
 
-	if (path)
+
+	path_cp = strdup(path);
+	if (path_cp == NULL)
 	{
-		path_cp = strdup(path);
-
-		if (path_cp == NULL)
-		{
-			perror("strdup failed");
-			return (NULL);
-		}
-
-		comm_len = strlen(command);
-
-		path_tok = strtok(path_cp, ":");
-
-		while (path_tok != NULL)
-		{
-			dir_len = strlen(path_tok);
-
-			f_path = malloc(comm_len + dir_len + 2);
-
-			if (!f_path)
-			{
-				perror("malloc failure");
-				return (NULL);
-			}
-			f_path[comm_len = dir_len + 1] = '\0';
-
-			strcpy(f_path, path_tok);
-			strcat(f_path, "/");
-			strcat(f_path, command);
-		}
-
-			if (stat(f_path, &buf) == 0)
-			{
-				return (strdup(command));
-			}
-	}
-}
+		perror("strdup failure");
 		return (NULL);
+	}
 
+	comm_len =  strlen(command);
 
+	path_tok = strtok(path_cp, ":");
+	while (path_tok != NULL)
+	{
+		dir_len = strlen(path_tok);
+		f_path = malloc(comm_len + dir_len + 2);
 
+		if (!f_path)
+		{
+			perror("malloc failure");
+			free(path_cp);
+			return(NULL);
+		}
 
+		strcpy(f_path, path_tok);
+		strcat(f_path, "/");
+		strcat(f_path, command);
+
+		if (stat(f_path, &buf) == 0)
+		{
+			free(path_cp);
+			return (f_path);
+		}
+
+		free(f_path);
+		path_tok = strtok(NULL, ":");
+	}
+
+	free(path_cp);
+	return (NULL);
+}
