@@ -7,7 +7,7 @@
 #include <sys/wait.h>
 #include <signal.h>
 
-#define MAX_ARGUMENTS 10
+
 
 /**
  * str_tok - function that copies a string.
@@ -31,7 +31,7 @@ char *str_tok(char *desti, const char *source)
 /**
  * getline - reads a line from stdin or stream.
  * @line: pointer to charecter.
- * @p: pointter to length of line.
+ * @size: pointter to length of line.
  * @stream: pointer o object.
  *
  * Return: totals chars.
@@ -84,7 +84,7 @@ ssize_t getline(char **line, size_t *size, FILE *stream)
 
 	if (read == 0 && a == EOF)
 		return (-1);
-				
+
 	(*line)[read] = '\0';
 	return (read);
 }
@@ -110,7 +110,7 @@ char **parse_input(char *input, size_t *count)
 {
 	char **arg = NULL;
 	char *toke;
-       
+
 	toke = strtok(input, " \n");
 
 	while (toke != NULL)
@@ -193,10 +193,11 @@ void exec_command(char **args)
 void sigchld_handler(int signum)
 {
 	(void)signum;
+
 	while (waitpid(-1, NULL, WNOHANG) > 0);
 }
 
-int main (void)
+int main(void)
 {
 	char **args;
 
@@ -214,6 +215,7 @@ int main (void)
 
 		{
 			size_t i;
+
 			for (i = 0; args[i] != NULL; i++)
 			{
 				free(args[i]);
@@ -222,5 +224,5 @@ int main (void)
 		}
 	}
 
-	return 0;
+	return (0);
 }
