@@ -12,7 +12,7 @@
 #include <limits.h>
 
 /**
- * strlen - calculates string length.
+ * str_len - calculates string length.
  * @string: string value.
  *
  * Return: total length.

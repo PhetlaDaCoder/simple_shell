@@ -11,7 +11,7 @@
 #include <limits.h>
 
 /**
- * strcmp - compares string values.
+ * str_cmp - compares string values.
  * @str1: first string.
  * @str2: second string.
  *

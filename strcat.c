@@ -11,7 +11,7 @@
 #include <limits.h>
 
 /**
- * strcat - joins two strings.
+ * str_cat - joins two strings.
  * @dest: pointer destination.
  * @src: pointer source.
  *

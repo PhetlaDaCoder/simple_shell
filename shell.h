@@ -37,6 +37,9 @@ void exec_command(char **args);
 void sigchld_handler(int signum);
 int main(void);
 static void handle_memory_error(void);
+static char *get_path_copy(void);
+ssize_t get_line(char **line, size_t *size, FILE *stream);
+static char *construct_full_path(char *dir, char *command);
 
 
 #endif

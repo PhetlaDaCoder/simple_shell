@@ -79,12 +79,12 @@ char *str_to(char *str, const char *delim)
 		j++;
 	}
 
-	if (las [j] == '\0')
+	if (las[j] == '\0')
 		las = NULL;
 	else
 	{
-		las [j] = '\0';
-		las = las +j + 1;
+		las[j] = '\0';
+		las = las + j + 1;
 		if (*las == '\0')
 			las = NULL;
 	}

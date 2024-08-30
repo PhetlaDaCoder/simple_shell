@@ -11,7 +11,7 @@
 #include <limits.h>
 
 /**
- * char *strcpy - function that copies string.
+ * char *str_cpy - function that copies string.
  * @dest: to destination
  * @src: source to copy from.
  *

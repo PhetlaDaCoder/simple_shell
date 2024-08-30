@@ -7,6 +7,63 @@
 #include <sys/wait.h>
 
 /**
+ * get_path_copy - copies path enviroment variable.
+ *
+ * Return: Pointer to copied string of NULL if failed.
+ */
+
+static char *get_path_copy(void)
+{
+	char *path = getenv("PATH");
+	char *path_cp;
+
+	if (!path)
+	{
+		perror("getenv failure");
+		return (NULL);
+	}
+
+	path_cp = strdup(path);
+	if (!path_cp)
+	{
+		perror("strdup failure");
+	}
+
+	return (path_cp);
+}
+
+/**
+ * construct_full_path - constructs path command.
+ * @dir: Directory from path.
+ * @command: command to locate.
+ *
+ * Return: pointer to constructed path or NULL if failure.
+ */
+
+static char *construct_full_path(char *dir, char *command)
+{
+	char *f_path;
+	int comm_len;
+	int dir_len;
+
+	comm_len = strlen(command);
+	dir_len = strlen(dir);
+
+	f_path = malloc(comm_len + dir_len + 2);
+	if (!f_path)
+	{
+		perror("malloc failure");
+		return (NULL);
+	}
+
+	strcpy(f_path, dir);
+	strcat(f_path, "/");
+	strcat(f_path, command);
+
+	return (f_path);
+}
+
+/**
  * path_command -a function that locates an enviroment path.
  * @command: command pointer.
  *
@@ -15,44 +72,25 @@
 
 char *path_command(char *command)
 {
-	char *path = NULL, *path_cp = NULL, *f_path = NULL, *path_tok = NULL;
-	int comm_len = 0, dir_len = 0;
+	char *path_cp;
+	char *path_tok;
+	char *f_path;
 	struct stat buf;
 
-	path = getenv("PATH");
+	*path_cp = get_path_copy();
 
-	if (!path)
-	{
-		perror("getenv failure");
+	if (!path_cp)
 		return (NULL);
-	}
-
-
-	path_cp = strdup(path);
-	if (path_cp == NULL)
-	{
-		perror("strdup failure");
-		return (NULL);
-	}
-
-	comm_len =  strlen(command);
 
 	path_tok = strtok(path_cp, ":");
 	while (path_tok != NULL)
 	{
-		dir_len = strlen(path_tok);
-		f_path = malloc(comm_len + dir_len + 2);
-
+		f_path = construct_full_path(path_tok, command);
 		if (!f_path)
 		{
-			perror("malloc failure");
 			free(path_cp);
 			return (NULL);
 		}
-
-		strcpy(f_path, path_tok);
-		strcat(f_path, "/");
-		strcat(f_path, command);
 
 		if (stat(f_path, &buf) == 0)
 		{
@@ -67,3 +105,4 @@ char *path_command(char *command)
 	free(path_cp);
 	return (NULL);
 }
+
