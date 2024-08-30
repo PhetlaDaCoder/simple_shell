@@ -21,7 +21,7 @@ extern char **environ;
 
 int printAlpha(void);
 void prompt(void);
-char *str_cpy(char *desti, const char *source);
+char *str_tok(char *desti, const char *source);
 ssize_t get_line(char **line, size_t *p, FILE *stream);
 int print_env(void);
 void exec(char **argv);
@@ -32,6 +32,6 @@ unsigned int vali_char(char ch, const char *str);
 char *str_to(char *str, const char *delim);
 int str_cmp(char *str1, char *str2);
 char *str_cpy(char *dest, char *src);
-char **parse_input(char *int, size_t *count);
+char **parse_input(char *input, size_t *count);
 
 #endif

@@ -13,7 +13,6 @@
  * Return: pointer or NULL
  */
 
-char *path_command(char *command);
 char *path_command(char *command)
 {
 	char *path = NULL, *path_cp = NULL, *f_path = NULL, *path_tok = NULL;

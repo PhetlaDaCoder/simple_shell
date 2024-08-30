@@ -10,14 +10,14 @@
 #define MAX_ARGUMENTS 10
 
 /**
- * strcpy - function that copies a string.
+ * str_tok - function that copies a string.
  * @desti: pointer destination.
- * @sou: source pointer.
+ * @source: source pointer.
  *
  * Return: Null.
  */
 
-char *str_cpy(char *desti, const char *source)
+char *str_tok(char *desti, const char *source)
 {
 	char *point = desti;
 
@@ -37,17 +37,16 @@ char *str_cpy(char *desti, const char *source)
  * Return: totals chars.
  */
 
-ssize_t get_line(char **line, size_t *size, FILE *stream);
 ssize_t get_line(char **line, size_t *size, FILE *stream)
 {
 	size_t buff = 0;
 	ssize_t read = 0;
 	int a;
 
-	if (line == NULL || a == NULL)
+	if (line == NULL)
 		return (-1);
 
-	if (*line == NULL || *a == 0)
+	if (*line == NULL || *size == 0)
 	{
 		buff = BUFFER_SIZE;
 		*line = malloc(buff);
@@ -65,14 +64,14 @@ ssize_t get_line(char **line, size_t *size, FILE *stream)
 	{
 		(*line)[read++] = (char)a;
 
-		if (read == (ssize_t) (*size - 1))
+		if (read == (ssize_t)(*size - 1))
 		{
 			char *tmp = realloc(*line, buff + BUFFER_SIZE);
 
 			if (tmp == NULL)
 			{
 				perror("Memory allocation failed");
-				exit("EXIT_FAILURE");
+				exit(EXIT_FAILURE);
 			}
 
 			*line = tmp;
@@ -83,8 +82,9 @@ ssize_t get_line(char **line, size_t *size, FILE *stream)
 			break;
 	}
 
-	if (read == 0)
-		return (0);
+	if (read == 0 && a == EOF)
+		return (-1);
+				
 	(*line)[read] = '\0';
 	return (read);
 }
@@ -100,17 +100,17 @@ void prompt(void)
 
 /**
  * **parse_input - parses input
- * @int: user input
+ * @input: user input
  * @count: total arguments
  *
  * Return: argumensts.
  */
 
-char **parse_input(char *int, size_t *count)
+char **parse_input(char *input, size_t *count)
 {
 	char **arg = NULL;
 
-	char *toke != strtok(input, " \n");
+	char *toke = strtok(input, " \n");
 
 	while (toke != NULL)
 	{
@@ -126,6 +126,7 @@ char **parse_input(char *int, size_t *count)
 
 	return (arg);
 }
+
 /**
  * input - reads user input
  *

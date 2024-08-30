@@ -22,7 +22,7 @@ int str_len(char *string)
 {
 	int len = 0;
 
-	while (*str != '\0')
+	while (*string != '\0')
 	{
 		len++;
 		string++;

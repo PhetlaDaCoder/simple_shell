@@ -13,22 +13,22 @@
  * get_line - reads a line from stdin or obj.
  * @line: pointer to charecter.
  * @size: pointter to length of line.
- * @obj: pointer o object.
+ * @stream: pointer o object.
  *
  * Return: totals chars.
  */
 
 ssize_t get_line(char **line, size_t *size, FILE *stream);
-ssize_t get_line(char **line, size_t *size, FILE *stream)
 {
+
 	size_t buff = 0;
 	ssize_t read = 0;
 	int a;
 
-	if (line == NULL || a == NULL)
+	if (line == NULL)
 		return (-1);
 
-	if (*line == NULL || *a == 0)
+	if (*line == NULL || *size == 0)
 	{
 		buff = BUFFER_SIZE;
 		*line = malloc(buff);
@@ -64,8 +64,9 @@ ssize_t get_line(char **line, size_t *size, FILE *stream)
 			break;
 	}
 
-	if (read == 0)
+	if (read == 0 && a == EOF)
 		return (0);
+
 	(*line)[read] = '\0';
 	return (read);
 }
