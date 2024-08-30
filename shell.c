@@ -109,6 +109,7 @@ void prompt(void)
 char **parse_input(char *inp, size_t *count)
 {
 	char **arg = NULL;
+
 	char *toke != strtok(input, " \n");
 
 	while (toke != NULL)
