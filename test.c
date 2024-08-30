@@ -29,9 +29,18 @@ char *str_tok(char *desti, const char *source)
 }
 
 /**
- * parse_input - parses input.
+ * prompt_loop - prompts user for input.
+ */
+
+void prompt_loop(void)
+{
+	write(STDOUT_FILENO, "$ ", 2);
+}
+
+/**
+ * **parse_input - parses input
  * @input: user input
- * @count: total arguments.
+ * @count: total arguments
  *
  * Return: argumensts.
  */
@@ -49,7 +58,7 @@ char **parse_input(char *input, size_t *count)
 		arg[*count] = strdup(toke);
 		(*count)++;
 
-		toke = str_tok(NULL, " \n");
+		toke = strtok(NULL, " \n");
 	}
 
 	arg = realloc(arg, (*count + 1) * sizeof(char *));
@@ -127,3 +136,32 @@ void sigchld_handler(int signum)
 	while (waitpid(-1, NULL, WNOHANG) > 0);
 }
 
+int main(void)
+{
+	char **args;
+
+	signal(SIGCHLD, sigchld_handler);
+
+	while (1)
+	{
+		prompt_loop();
+		args = input();
+
+		if (args[0] != NULL)
+		{
+			exec_command(args);
+		}
+
+		{
+			size_t i;
+
+			for (i = 0; args[i] != NULL; i++)
+			{
+				free(args[i]);
+			}
+			free(args);
+		}
+	}
+
+	return (0);
+}

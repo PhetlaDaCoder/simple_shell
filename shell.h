@@ -11,11 +11,8 @@
 #include <sys/stat.h>
 #include <errno.h>
 #include <limits.h>
-
-#define MAX_ARGUMENTS 10
+#include <stddef.h>
 #define BUFFER_SIZE 1024
-#define MAX_LINES 256
-
 extern char **environ;
 
 
@@ -38,7 +35,7 @@ void sigchld_handler(int signum);
 int main(void);
 static void handle_memory_error(void);
 static char *get_path_copy(void);
-ssize_t get_line(char **line, size_t *size, FILE *stream);
+ssize_t _getline(char **line, size_t *size, FILE *stream);
 static char *construct_full_path(char *dir, char *command);
 
 

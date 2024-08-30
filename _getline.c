@@ -98,7 +98,7 @@ static ssize_t read_line(char **line, size_t *size, FILE *stream)
 
 
 /**
- * get_line - reads a line from stdin or stream.
+ * _getline - reads a line from stdin or stream.
  *
  * @line: pointer to charecter.
  * @size: pointter to length of line.
@@ -107,7 +107,7 @@ static ssize_t read_line(char **line, size_t *size, FILE *stream)
  * Return: totals chars.
  */
 
-ssize_t get_line(char **line, size_t *size, FILE *stream)
+ssize_t _getline(char **line, size_t *size, FILE *stream)
 {
 	if (line == NULL)
 		return (-1);
