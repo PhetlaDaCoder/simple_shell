@@ -35,7 +35,7 @@ char **parse_input(char *input, size_t *count);
 void exec_command(char **args);
 void sigchld_handler(int signum);
 int main(void);
-
+char **input(void);
 
 ssize_t _getline(char **line, size_t *size, FILE *stream);
 

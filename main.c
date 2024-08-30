@@ -5,8 +5,9 @@
 int main(void)
 {
 	char **args;
+	size_t i;
 
-	signal(SIGCHLD< sigchld_handler);
+	signal(SIGCHLD, sigchld_handler);
 
 	while (1)
 	{
@@ -17,7 +18,7 @@ int main(void)
 			exec_command(args);
 		}
 
-		for (size_t i = 0; args[i] != NULL; i++)
+		for (args[i] != NULL; i++)
 		{
 			free(args[i]);
 		}
