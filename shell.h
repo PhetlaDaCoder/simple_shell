@@ -36,9 +36,10 @@ void exec_command(char **args);
 void sigchld_handler(int signum);
 int main(void);
 char **input(void);
-
+char *find_token(char **str_ptr, const char *delim);
 ssize_t _getline(char **line, size_t *size, FILE *stream);
-
+char *construct_full_path(char *dir, char *command);
+char *get_path_copy(void);
 
 
 #endif

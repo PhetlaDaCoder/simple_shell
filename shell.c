@@ -40,6 +40,7 @@ void exec_command(char **args)
 
 void sigchld_handler(int signum)
 {
+	(void)signum;
 	do {
 
 	} while (waitpid(-1, NULL, WNOHANG) > 0);
@@ -63,7 +64,7 @@ int main(void)
 	{
 		if (inter)
 		{
-			printf("cisfun$", 2);
+			printf("#cisfun$ ");
 			fflush(stdout);
 		}
 
@@ -71,7 +72,7 @@ int main(void)
 
 		if (args != NULL && args[0] != NULL)
 		{
-			exec_command(args[i]);
+			exec_command(args);
 		}
 
 		for (i = 0; args != NULL && args[i] != NULL; i++)

@@ -79,10 +79,9 @@ static void store_argument(char ***args, size_t *count, const char *token)
 
 char **parse_input(char *input, size_t *count)
 {
-	char **args;
+	char **args = NULL;
 	char *token;
 
-	**args = NULL;
 	*count = 0;
 
 	while ((token = find_token(&input, " \n")) != NULL)

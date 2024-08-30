@@ -82,7 +82,7 @@ char *path_command(char *command)
 	if (!path_cp)
 		return (NULL);
 
-	path_tok = str_tok(path_cp, ":");
+	path_tok = find_token(path_cp, ":");
 	while (path_tok != NULL)
 	{
 		f_path = construct_full_path(path_tok, command);
@@ -99,7 +99,7 @@ char *path_command(char *command)
 		}
 
 		free(f_path);
-		path_tok = strtok(NULL, ":");
+		path_tok = find_token(&path_cp,  ":");
 	}
 
 	free(path_cp);
