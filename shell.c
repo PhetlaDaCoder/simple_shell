@@ -46,6 +46,85 @@ void sigchld_handler(int signum)
 	} while (waitpid(-1, NULL, WNOHANG) > 0);
 }
 
+/**
+ * split_input - splits the input string to arguments.
+ * @line: Theinput line.
+ *
+ * Return: An array of strings containg the comment and its arguments.
+ */
+
+char **split_input(char *line)
+{
+	size_t bufsize = BUFFER_SIZE, position = 0, start = 0, end;
+	char **tokens = malloc(bufsize * sizeof(char *));
+	char *token;
+
+	if (!token)
+	{
+		perror("malloc");
+		return (NULL);
+	}
+
+	while (line[start])
+	{
+		while (line[start] == ' ' || line[start] == '\t')
+			start++;
+		if (line[start])
+			break;
+		end = start;
+		while (line[end] && line[end] != ' ' && line[end] != '\t' && line[end] != '\n')
+			end;
+
+		token = strndup(&line[start], end - start);
+		if (!token)
+		{
+			perror("strndup");
+			return (NULL);
+		}
+		tokens[position++] = token;
+
+		if (position >= bufsize)
+		{
+			bufsize += BUFFER_SIZE;
+			tokens = realloc(tokens, bufsize * sizeof(char *));
+			if (!tokens)
+			{
+				perror("realloc");
+				return (NULL);
+			}
+		}
+		start = end;
+	}
+	tokens[position] = NULL;
+	return(token)s;
+}
+
+/**
+ * input - Reads input from the user.
+ *
+ * Return: an array of string containing thr command and arguments.
+ */
+
+char **input(void)
+{
+	char *line = NULL;
+	size_t bufsize = 0;
+	ssize_t nread;
+	char ** args = NULL;
+
+	nread = _getline(&line, &bufsize, stdin);
+	if (nread == -1)
+	{
+		free(line);
+		return (NULL);
+	}
+
+	args = split_input(line);
+
+	free(line);
+	return (arg)s;
+}
+
 
 int main(void)
 {
