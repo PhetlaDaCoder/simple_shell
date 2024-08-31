@@ -7,6 +7,8 @@
 #include <sys/wait.h>
 #include <signal.h>
 
+#define BUFFER_SIZE 1024
+
 /**
  * exec_command - handles commands.
  * @args: arguments
@@ -59,21 +61,22 @@ char **split_input(char *line)
 	char **tokens = malloc(bufsize * sizeof(char *));
 	char *token;
 
-	if (!token)
+	if (!tokens)
 	{
 		perror("malloc");
 		return (NULL);
 	}
 
-	while (line[start])
+	while (line[start] != '\0')
 	{
 		while (line[start] == ' ' || line[start] == '\t')
 			start++;
-		if (line[start])
+		if (line[start] == '\0')
 			break;
+
 		end = start;
-		while (line[end] && line[end] != ' ' && line[end] != '\t' && line[end] != '\n')
-			end;
+		while (line[end] != '\0' && line[end] != ' ' && line[end] != '\t' && line[end] != '\n')
+			end++;
 
 		token = strndup(&line[start], end - start);
 		if (!token)
@@ -96,7 +99,7 @@ char **split_input(char *line)
 		start = end;
 	}
 	tokens[position] = NULL;
-	return(token)s;
+	return(tokens);
 }
 
 /**
@@ -122,7 +125,8 @@ char **input(void)
 	args = split_input(line);
 
 	free(line);
-	return (arg)s;
+
+	return (args);
 }
 
 
@@ -163,4 +167,3 @@ int main(void)
 
 	return (0);
 }
-
