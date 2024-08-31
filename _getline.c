@@ -61,10 +61,10 @@ static void resize_buffer(char **line, size_t *buff)
 }
 
 /**
- * read_line - A function thats reads a given line.
- * @line: pointer to buffer
- * @size: pointer to the size of buffer.
- * @stream: stream to read from.
+ * read_line - a function that reads a given line.
+ * @line: pointer to buffer.
+ * @size: pointer to the size size of buffer.
+ * @stream: stream to read read from.
  *
  * Return: characters read.
  */
@@ -95,15 +95,14 @@ static ssize_t read_line(char **line, size_t *size, FILE *stream)
 	return (read);
 }
 
-
 /**
  * _getline - reads a line from stdin or stream.
  *
- * @line: pointer to charecter.
- * @size: pointter to length of line.
- * @stream: pointer o object.
+ * @line: pointer to character.
+ * @size: pointer to length of line.
+ * @stream: pointer to stream
  *
- * Return: totals chars.
+ * Return: totol characters.
  */
 
 ssize_t _getline(char **line, size_t *size, FILE *stream)

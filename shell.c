@@ -46,11 +46,6 @@ void sigchld_handler(int signum)
 	} while (waitpid(-1, NULL, WNOHANG) > 0);
 }
 
-/**
- * main - main function of the program.
- *
- * Return: 0 if success or NULL.
- */
 
 int main(void)
 {
@@ -89,3 +84,4 @@ int main(void)
 
 	return (0);
 }
+
