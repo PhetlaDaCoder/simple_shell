@@ -20,7 +20,7 @@ void exec_command(char **args)
 	if (pid == 0)
 	{
 		execvp(args[0], args);
-i		perror("execvp");
+		perror("execvp");
 		exit(EXIT_FAILURE);
 	}
 	else if (pid > 0)
@@ -29,9 +29,9 @@ i		perror("execvp");
 	}
 	else
 	{
-i		perror("fork");
+		perror("fork");
 	}
-i}
+}
 
 /**
  * sigchld_handler - a function that runs processes.
@@ -46,6 +46,13 @@ void sigchld_handler(int signum)
 	} while (waitpid(-1, NULL, WNOHANG) > 0);
 }
 
+
+/**
+ * main - main loop of the program.
+ *
+ * Return: 0 when done.
+ *
+ */
 
 int main(void)
 {
@@ -63,7 +70,7 @@ int main(void)
 			fflush(stdout);
 		}
 
-		args = input();
+		args = parse_input();
 
 		if (args != NULL && args[0] != NULL)
 		{
