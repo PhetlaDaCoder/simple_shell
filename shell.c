@@ -70,7 +70,7 @@ int main(void)
 			fflush(stdout);
 		}
 
-		args = parse_input();
+		args = prompt_loop();
 
 		if (args != NULL && args[0] != NULL)
 		{
