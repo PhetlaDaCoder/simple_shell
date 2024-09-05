@@ -1,12 +1,10 @@
 #include "shell.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 /**
- * prompt_loop - prompts user for input/
+ * prompt - function that prompts the user.
  */
 
-void prompt_loop(void)
+void prompt (void)
 {
-	write(STDOUT_FILENO, "#cisfun$ ", 8);
+	write(STDOUT_FILENO, "#cisfun$ ", 2);
 }

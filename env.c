@@ -1,16 +1,9 @@
 #include "shell.h"
 
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <signal.h>
-#include <string.h>
-#include <sys/wait.h>
-
 /**
- * print_env - prints enviroment variable.
- * Return: o when done.
+ * print_env - prints enviroment variables
  *
+ * Return: o when done or - 1 if error.
  */
 
 int print_env(void)
@@ -19,6 +12,7 @@ int print_env(void)
 
 	while (*env_point)
 	{
+
 		size_t len = 0;
 
 		while ((*env_point)[len])
