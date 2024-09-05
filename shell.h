@@ -23,5 +23,8 @@ char *str_cpy(char *desti, char *src);
 void prompt (void);
 int print_env(void);
 ssize_t _getline(char **linepoint, size_t *p, FILE *stream);
+int resize_buffer(char **linepoint, size_t *p);
+char *path_cmd(char *cmd);
+
 
 #endif

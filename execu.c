@@ -16,7 +16,7 @@ void execu(char **argv)
 	{
 		command = argv[0];
 
-		true_command = path(command);
+		true_command = path_cmd(command);
 
 		if (true_command == NULL)
 		{
