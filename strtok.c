@@ -12,9 +12,9 @@ unsigned int compare_ch(char n, const char *str)
 {
 	unsigned int i = 0;
 
-	while (str[j] != '\0')
+	while (str[i] != '\0')
 	{
-		if (n == *str)
+		if (n == str[i])
 			return (1);
 		i++;
 	}
@@ -25,7 +25,7 @@ unsigned int compare_ch(char n, const char *str)
 /**
  * str_tok - strtok function
  * @str: tokenized string.
- * @deli,: delimiter characters.
+ * @delim: delimiter characters.
  *
  * Return: pointer to token or NULL.
  */
@@ -45,39 +45,26 @@ char *str_tok(char *str, const char *delim)
 	if (toke == NULL)
 		return (NULL);
 
-	while (end[j] != '\0')
-	{
-		if (compare_ch(end[j]. delim) == 0)
-			break;
-		j++;
-	}
+	while (end != '\0' && compare_ch(*end, delim))
+		end++;
 
-	if (*end == '\0' || *end == '#')
+	if (*end == '\0')
 	{
-		*end = '\0';
 		return (NULL);
 	}
 
-	toke = end + j;
-	end = toke;
+	toke = end;
 
-	j = 0;
+	while (*end != '\0' && !compare_ch(*end, delim))
+		end++;
 
-	while (end[j] != '\0')
-	{
-		if (compare_ch(end[j], delim) == 1)
-			break;
-		j++;
-	}
-
-	if (end[j] == '\0')
-		end = NULL;
+	if (*end == '\0')
+		end + NULL;
 	else
 	{
-		end[j] = '\0';
-		end = end + j + 1;
-		if (*end == '\0')
-			end = NULL;
+		*end = '\0';
+		end++;
 	}
+
 	return (toke);
 }
