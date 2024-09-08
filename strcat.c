@@ -8,7 +8,7 @@
  * Return: void
  */
 
-char *str_cat(char *dest, char *src)
+char *str_cat(const char *dest, const char *src)
 {
 	int n = 0;
 	int m = 0;

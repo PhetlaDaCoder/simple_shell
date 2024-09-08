@@ -14,7 +14,6 @@
 #include <stddef.h>
 
 #define BUFFER_SIZE 1024
-#define MAX_ARG 64
 #define MAX_ARGS 100
 
 
@@ -23,18 +22,17 @@ extern char **environ;
 
 int printAlpha(void);
 int _strcmp(char *str1, char *str2);
-char *str_cpy(char *desti, char *src);
-void prompt (void);
+char *str_cpy(const char *desti, const char *src);
+void prompt(void);
 ssize_t _getline(char **linepoint, size_t *p, FILE *stream);
 char *path_cmd(char *cmd);
 unsigned int compare_ch(char n, const char *str);
 char *str_tok(char *str, const char *delim);
-int str_len(char *str);
-char *str_cat(char *dest, char *src);
+int str_len(const char *str);
+char *str_cat(const char *dest, const char *src);
 char **parse_input(char *input, size_t *arg_count);
 char **get_input(void);
-int main();
-int main (void);
+int main(void);
 void execu(char **argv);
 void handle_command(char *line);
 void print_env(void);
