@@ -34,6 +34,7 @@ char *str_tok(char *str, const char *delim)
 {
 	static char *end;
 	static char *toke;
+	unsigned int i = 0;
 
 	if (str != NULL)
 		end = str;
@@ -43,7 +44,7 @@ char *str_tok(char *str, const char *delim)
 	if (toke == NULL)
 		return (NULL);
 
-	while (end != '\0' && compare_ch(*end, delim))
+	while (end[i] != '\0' && compare_ch(*end, delim))
 		end++;
 
 	if (*end == '\0')
@@ -65,4 +66,4 @@ char *str_tok(char *str, const char *delim)
 	}
 
 	return (toke);
-}`
+}

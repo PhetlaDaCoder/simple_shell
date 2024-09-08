@@ -1,4 +1,8 @@
 #include "shell.h"
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <sys/wait.h>
 
 #define MAX_ARG 64
 
@@ -29,17 +33,19 @@ char **parse_input(char *input, size_t *arg_count)
 		args = realloc(args, (*arg_count + 1) * sizeof(char *));
 		if (args == NULL)
 		{
-			perror("Allocation error4")'
+			perror("Allocation error");
 			exit(EXIT_FAILURE);
-		}	
+		}
 		args[*arg_count] = strdup(token);
 
-		if (args([*arg_count] == NULL)
+		if (args[*arg_count] == NULL)
 		{
+			perror("Duplication error");
+			exit(EXIT_FAILURE);
+		}
 
 
 		(*arg_count)++;
-
 		token = strtok(NULL, " \n");
 	}
 
@@ -75,7 +81,6 @@ char **get_input(void)
 	}
 
 	args = parse_input(input, &arg_count);
-
 	free(input);
 
 	return (args);
@@ -90,24 +95,19 @@ char **get_input(void)
 
 int main(void)
 {
-	char **args;
-
+	
 	pid_t pid;
 	int status;
-	size_t i;
+	char *line = NULL;
+	size_t n = 0;
+	ssize_t char_read;
+	char *argv[MAX_ARG];
+	char *token;
+	char **env;
 
 	while (1)
 	{
-		char *line = NULL;
-
-		size_t n = 0;
-		ssize_t char_read;
-
-		char *argv[MAX_ARG];
-
-		char *token = NULL;
-
-		int status, i = 0;
+		int j = 0;
 
 		if (isatty(STDIN_FILENO) == 1)
 			prompt();
@@ -121,19 +121,33 @@ int main(void)
 		}
 
 		token = str_tok(line, " \t\n");
-		while (token != NULL && i < MAX_ARG - 1)
+		while (token != NULL && j < MAX_ARG - 1)
 		{
-			argv[i] = token;
+			argv[j] = token;
 			token = str_tok(NULL, " \t\n");
-			i++;
+			j++;
 		}
-		argv[i] = NULL;
+		argv[j] = NULL;
+
+		if (argv[0] == NULL)
+		{
+			free(line);
+			continue;
+		}
 
 		if (str_cmp(argv[0], "exit") == 0)
+		{
+			free(line);
 			break;
+		}
 		else if (str_cmp(argv[0], "env") == 0)
 		{
-			print_env();
+			extern char **environ;
+
+			env = environ;
+			for (char **env; env++);
+				printf("%s\n", *env);
+			free(line);
 			continue;
 		}
 
@@ -149,9 +163,8 @@ int main(void)
 		{
 			execvp(argv[0], argv);
 			perror("Command execution failed");
-			free(line)
+			free(line);
 			exit(EXIT_FAILURE);
-		}
 		}
 		else
 		{
