@@ -6,5 +6,5 @@
 
 void prompt (void)
 {
-	write(STDOUT_FILENO, "#cisfun$ ", 2);
+	write(STDOUT_FILENO, "#cisfun$ ", 9);
 }

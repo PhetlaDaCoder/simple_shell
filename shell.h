@@ -15,15 +15,16 @@
 
 #define BUFFER_SIZE 1024
 #define MAX_ARG 64
+#define MAX_ARGS 100
+
 
 
 extern char **environ;
 
 int printAlpha(void);
-int str_cmp(char *str1, char *str2);
+int _strcmp(char *str1, char *str2);
 char *str_cpy(char *desti, char *src);
 void prompt (void);
-int print_env(void);
 ssize_t _getline(char **linepoint, size_t *p, FILE *stream);
 char *path_cmd(char *cmd);
 unsigned int compare_ch(char n, const char *str);
@@ -36,5 +37,8 @@ int main();
 int main (void);
 void execu(char **argv);
 void handle_command(char *line);
+void print_env(void);
+char **tokenize(char *line);
+void execute_command(char **argv);
 
 #endif
