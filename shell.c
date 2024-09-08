@@ -27,7 +27,17 @@ char **parse_input(char *input, size_t *arg_count)
 	while (token != NULL)
 	{
 		args = realloc(args, (*arg_count + 1) * sizeof(char *));
+		if (args == NULL)
+		{
+			perror("Allocation error4")'
+			exit(EXIT_FAILURE);
+		}	
 		args[*arg_count] = strdup(token);
+
+		if (args([*arg_count] == NULL)
+		{
+
+
 		(*arg_count)++;
 
 		token = strtok(NULL, " \n");
@@ -93,7 +103,7 @@ int main(void)
 		size_t n = 0;
 		ssize_t char_read;
 
-		char *argv[MAX_ARGS];
+		char *argv[MAX_ARG];
 
 		char *token = NULL;
 
@@ -157,4 +167,3 @@ int main(void)
 
 	return (0);
 }
-

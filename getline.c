@@ -66,7 +66,7 @@ static int read_ch(char **linepoint, size_t *p, ssize_t *ch_read, FILE *stream)
 	if (ch == EOF)
 		return (-1);
 
-	if (*ch_reads >= (ssize_t)(*p - 1))
+	if (*ch_read >= (ssize_t)(*p - 1))
 	{
 		if (resize_buffer(linepoint, p) == -1)
 			return (-1);
