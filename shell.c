@@ -87,6 +87,73 @@ char **get_input(void)
 }
 
 /**
+ * handle_command - a function that handles commands.
+ * @line: given argument.
+ *
+ * Return: NULL.
+ */
+
+void handle_command(char *line)
+{
+	pid_t pid;
+	int status;
+	char *argv[MAX_ARG];
+	char *token;
+	char **env;
+	int j = 0;
+
+	token = str_tok(line, " \t\n");
+	while (token != NULL && j < MAX_ARGS - 1)
+	{
+		argv[j] = token;
+		token = str_tok(NULL, " \t\n");
+		j++;
+	}
+	argv[j] = NULL;
+
+	if (argv[0] == NULL)
+		return;
+
+	if (str_cmp(argv[0], "exit") == 0)
+	{
+		exit(EXIT_SUCCESS);
+	}
+	else if (str_cmp(argv[0], "env") == 0)
+	{
+		env = environ;
+
+		while (*env)
+		{
+			printf("%s\n", *env);
+			env++;
+		}
+		return;
+	}
+
+	pid = fork();
+
+	if (pid == -1)
+	{
+		perror("fork failure");
+		exit(EXIT_FAILURE);
+	}
+	if (pid == 0)
+	{
+		execvp(argv[0], argv);
+		perror("Command execution failed");
+		exit(EXIT_FAILURE);
+	}
+	else
+	{
+		if (waitpid(pid, &status, 0) == -1)
+		{
+			perror("waitpid failure");
+			exit(EXIT_FAILURE);
+		}
+	}
+}
+
+/**
  * main - main function of the program.
  *
  * Return: 0 when done.
@@ -95,87 +162,27 @@ char **get_input(void)
 
 int main(void)
 {
-	
-	pid_t pid;
-	int status;
+	ssize_t char_read;
 	char *line = NULL;
 	size_t n = 0;
-	ssize_t char_read;
-	char *argv[MAX_ARG];
-	char *token;
-	char **env;
 
 	while (1)
 	{
-		int j = 0;
-
-		if (isatty(STDIN_FILENO) == 1)
+		if (isatty(STDIN_FILENO))
 			prompt();
 
 		char_read = _getline(&line, &n, stdin);
 		if (char_read == -1)
 		{
-			perror("error. \n");
+			perror("error");
 			free(line);
 			exit(EXIT_FAILURE);
 		}
 
-		token = str_tok(line, " \t\n");
-		while (token != NULL && j < MAX_ARG - 1)
-		{
-			argv[j] = token;
-			token = str_tok(NULL, " \t\n");
-			j++;
-		}
-		argv[j] = NULL;
-
-		if (argv[0] == NULL)
-		{
-			free(line);
-			continue;
-		}
-
-		if (str_cmp(argv[0], "exit") == 0)
-		{
-			free(line);
-			break;
-		}
-		else if (str_cmp(argv[0], "env") == 0)
-		{
-			extern char **environ;
-
-			env = environ;
-			for (char **env; env++);
-				printf("%s\n", *env);
-			free(line);
-			continue;
-		}
-
-		pid = fork();
-
-		if (pid == -1)
-		{
-			perror("fork failure.\n");
-			free(line);
-			exit(EXIT_FAILURE);
-		}
-		if (pid == 0)
-		{
-			execvp(argv[0], argv);
-			perror("Command execution failed");
-			free(line);
-			exit(EXIT_FAILURE);
-		}
-		else
-		{
-			if (waitpid(pid, &status, 0) == -1)
-			{
-				perror("waitpid failure. \n");
-				free(line);
-				exit(EXIT_FAILURE);
-			}
-		}
+		handle_command(line);
 		free(line);
+		line = NULL;
+		n = 0;
 	}
 
 	return (0);

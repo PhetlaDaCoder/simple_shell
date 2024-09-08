@@ -35,4 +35,6 @@ char **get_input(void);
 int main();
 int main (void);
 void execu(char **argv);
+void handle_command(char *line);
+
 #endif
