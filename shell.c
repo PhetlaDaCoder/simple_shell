@@ -8,7 +8,7 @@
 
 void prompt(void)
 {
-	write(STDOUT_FILENO, "#cisfun$ ", 2);
+	write(STDOUT_FILENO, "#cisfun$ ", 9);
 }
 
 /**
@@ -53,7 +53,7 @@ char **get_input(void)
 
 	response = _getline(&input, &len, stdin);
 
-	if (respomse == -1)
+	if (response == -1)
 	{
 		free(input);
 		exit(EXIT_FAILURE);
@@ -86,12 +86,8 @@ int main(void)
 	int status;
 	size_t i;
 
-int main(void)
-{
 	while (1)
 	{
-		pid_t pid;
-
 		char *line = NULL;
 
 		size_t n = 0;
@@ -103,7 +99,7 @@ int main(void)
 
 		int status, i = 0;
 
-		if (issaty(STDIN_FILENO) == 1)
+		if (isatty(STDIN_FILENO) == 1)
 			prompt();
 
 		char_read = _getline(&line, &n, stdin);
@@ -125,7 +121,7 @@ int main(void)
 
 		if (str_cmp(argv[0], "exit") == 0)
 			break;
-		else if (str_cmp(arg[0], "env") == 0)
+		else if (str_cmp(argv[0], "env") == 0)
 		{
 			print_env();
 			continue;
@@ -141,7 +137,11 @@ int main(void)
 		}
 		if (pid == 0)
 		{
-			execu(argv);
+			execvp(argv[0], argv);
+			perror("Command execution failed");
+			free(line)
+			exit(EXIT_FAILURE);
+		}
 		}
 		else
 		{
@@ -157,6 +157,4 @@ int main(void)
 
 	return (0);
 }
-
-
 
