@@ -8,7 +8,7 @@
  * Return: copied string or -1 if failed.
  */
 
-char *str_cpy(const char *desti, const char *src)
+char *str_cpy(char *desti, const char *src)
 {
 	int i;
 
