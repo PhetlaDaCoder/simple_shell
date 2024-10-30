@@ -1,18 +1,18 @@
 #include "shell.h"
 
 /**
- * not_issaty - Non-interactive mode of the shell.
- * @env: The enviroment variables
+ * not_issaty - Non - interactive mode of the shell/
+ * @env: Enviroment variable
  *
- * Return: The exit status or success
+ * Return: Exit status or success.
  */
 
 int not_issaty(char **env)
 {
-	char *input = NULL, **cmd;
+	char *input = NULL;
 	ssize_t nread;
 	size_t len = 0;
-	int exit_status = 0, execute;
+	int exit_status = 0;
 
 	if (access("/dev/tty", F_OK) != 0)
 	{
@@ -22,38 +22,59 @@ int not_issaty(char **env)
 
 	while ((nread = getline(&input, &len, stdin)) != -1)
 	{
-		cmd = token(input);
 		if (nread == 0)
-		{
 			break;
-		}
-		else if (_strcmp(cmd[0], "exit") == 0)
-		{
-			exit_status = exit_(cmd[1]);
-			if (exit_status != -1)
-			{
-				free_cmd_arg(cmd);
-				free(input);
-				return (exit_status);
-			}
-		}
-		else if (_strcmp(cmd[0], "env") == 0)
-		{
-			printenv(env);
-		}
-		else
-		{
-			execute = exec(cmd);
-			if (execute != 0)
-			{
-				free_cmd_arg(cmd);
-				continue;
-			}
-		}
-		free_cmd_arg(cmd);
-		free(input);
+
+		char **cmd;
+
+		cmd = token(input);
+
+		exit_status = handle_command(cmd, env, &exit_status);
+		cleanup(cmd, input);
+
 		input = NULL;
 		len = 0;
 	}
+
+	free(input);
 	return (exit_status);
+}
+
+/**
+ * handle_command - Executes a commmand.
+ * @cmd: Command to be executed
+ * @env: The enviroment variables
+ * @exit_status: Pointer to exit status.
+ *
+ * Return: 0 when done or NULL on failure.
+ */
+
+int handle_command(char **cmd, char **env, int *exit_status)
+{
+	if (_strcmp(cmd[0], "exit") == 0)
+	{
+		*exit_status = exit_(cmd[1]);
+		return (1);
+	}
+	else if (_strcmp(cmd[0], "env") == 0)
+	{
+		printenv(env);
+	}
+	else
+	{
+		return (exec(cmd));
+	}
+	return (0);
+}
+
+/**
+ * cleanup - A function that cleans memory
+ * @cmd: First argument
+ * @input: Second argument
+ */
+
+void cleanup(char **cmd, char *input)
+{
+	free_cmd_arg(cmd);
+	free(input);
 }

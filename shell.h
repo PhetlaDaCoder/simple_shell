@@ -1,7 +1,9 @@
 #ifndef SHELL
 #define SHELL
+
 #include <stdio.h>
-#include <stdfef.h>
+
+#include <stddef.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
@@ -25,8 +27,13 @@ void *_realloc(void *ptr, size_t new_size);
 int _atoi(char *s);
 int _strlen(const char *s);
 char *_strcpy(char *dest, const char *src);
-char *_strcat(char *dest, const char 8src);
-int _strcmo(const char *s1, const char *s2);
+char *_strcat(char *dest, const char *src);
+int _strcmp(const char *s1, const char *s2);
 char *_strdup(const char *s);
 char *_getenc(const char *env_var);
+int not_issaty(char **env);
+int handle_command(char **cmd, char **env, int *exit_status);
+void cleanup(char **cmd, char *input);
+
+
 #endif

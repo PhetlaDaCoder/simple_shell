@@ -8,7 +8,7 @@
 char *_getenv(const char *env_var)
 {
 	char **env;
-	size_t var_long = _strlen(env_var);
+	size_t var_leng = _strlen(env_var);
 
 	if (env_var == NULL || environ == NULL || *environ == NULL)
 		return (NULL);
