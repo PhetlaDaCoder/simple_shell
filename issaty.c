@@ -10,6 +10,7 @@
 int not_issaty(char **env)
 {
 	char *input = NULL;
+	char **cmd = token(input);
 	ssize_t nread;
 	size_t len = 0;
 	int exit_status = 0;
@@ -25,9 +26,9 @@ int not_issaty(char **env)
 		if (nread == 0)
 			break;
 
-		char **cmd;
-
-		cmd = token(input);
+		/**
+		 * char **cmd = token(input);
+		 */
 
 		exit_status = handle_command(cmd, env, &exit_status);
 		cleanup(cmd, input);

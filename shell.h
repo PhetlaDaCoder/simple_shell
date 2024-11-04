@@ -1,5 +1,5 @@
-#ifndef SHELL
-#define SHELL
+#ifndef _SHELL_H_
+#define _SHELL_H_
 
 #include <stdio.h>
 
@@ -34,6 +34,8 @@ char *_getenc(const char *env_var);
 int not_issaty(char **env);
 int handle_command(char **cmd, char **env, int *exit_status);
 void cleanup(char **cmd, char *input);
+ssize_t prompt(char **input, size_t len);
+int main(int ac, char **av, char **env);
 
 
 #endif
