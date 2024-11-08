@@ -1,4 +1,6 @@
 #include "shell.h"
+#include <stdlib.h>
+#include <unistd.h>
 
 /**
  * _strlen - Main program
@@ -21,28 +23,6 @@ int _strlen(const char *s)
 	return (i);
 }
 
-/**
- * _strcpy - Main program
- * @dest: Destination
- * @src: Source
- *
- * Return: Pointer to dest or NULL
- */
-char *_strcpy(char *dest, const char *src)
-{
-	size_t src_len = _strlen(src);
-	char *dest_ptr = dest;
-
-	if (src_len >= BUFFER_SIZE)
-		return (NULL);
-
-	while ((*dest++ = *src++) != '\0')
-	{
-		if ((size_t)(dest - dest_ptr) >= BUFFER_SIZE)
-			return (NULL);
-	}
-	return (dest_ptr);
-}
 
 /**
  * _strcpy - A function that copies strings.
@@ -84,8 +64,13 @@ char *_strcat(char *dest, const char *src)
 
 	if (dest == NULL || src == NULL)
 	{
-		write(STDERR_FILENO, "ERRor: NULL pointer detected.\n", 30);
-		return (dest);
+		write(STDERR_FILENO, "ERROR: NULL pointer detected.\n", 30);
+		return (NULL);
+	}
+
+	while (*ptr != '\0')
+	{
+		ptr++;
 	}
 
 	while (*src != '\0')
@@ -109,7 +94,7 @@ char *_strcat(char *dest, const char *src)
  */
 int _strcmp(const char *s1, const char *s2)
 {
-	if (*s1 == NULL || s2 == NULL)
+	if (s1 == NULL || s2 == NULL)
 		return (-1);
 
 	while (*s1 != '\0' && *s2 != '\0')
@@ -122,11 +107,7 @@ int _strcmp(const char *s1, const char *s2)
 		s2++;
 	}
 
-	if (*s1 != *s2)
-	{
-		return ((unsigned char) *s1 - (unsigned char)*s2);
-	}
-	return (0);
+	return ((unsigned char)*s1 - (unsigned char)*s2);
 }
 
 /**
@@ -137,8 +118,11 @@ int _strcmp(const char *s1, const char *s2)
  */
 char *_strdup(const char *s)
 {
-	size_t leng = _strlen(s) + 1;
-	char *dup = malloc(leng);
+	if (s == NULL)
+		return (NULL);
+
+	size_t len = _strlen(s) + 1;
+	char *dup = malloc(len);
 
 	if (dup != NULL)
 	{
