@@ -37,5 +37,4 @@ void cleanup(char **cmd, char *input);
 ssize_t prompt(char **input, size_t len);
 int main(int ac, char **av, char **env);
 
-
 #endif

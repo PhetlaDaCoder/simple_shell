@@ -45,7 +45,7 @@ char *_strcpy(char *dest, const char *src)
 }
 
 /**
- * _strcpy - Main prgram
+ * _strcpy - A function that copies strings.
  * @dest: destination
  * @src: Source
  *
