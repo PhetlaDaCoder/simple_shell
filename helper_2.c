@@ -33,11 +33,14 @@ int _strlen(const char *s)
  */
 char *_strcpy(char *dest, const char *src)
 {
-	size_t src_len = _strlen(src);
-	char *dest_ptr = dest;
+	size_t src_len;
+	char *dest_ptr;
 
-	if (dest == NULL ||  src == NULL)
+	if (dest == NULL || src == NULL)
 		return (NULL);
+
+	src_len = _strlen(src);
+	dest_ptr = dest;
 
 	if (src_len >= BUFFER_SIZE)
 		return (NULL);
@@ -60,7 +63,7 @@ char *_strcpy(char *dest, const char *src)
  */
 char *_strcat(char *dest, const char *src)
 {
-	char *ptr = dest;
+	char *ptr;
 
 	if (dest == NULL || src == NULL)
 	{
@@ -68,6 +71,7 @@ char *_strcat(char *dest, const char *src)
 		return (NULL);
 	}
 
+	ptr = dest;
 	while (*ptr != '\0')
 	{
 		ptr++;
@@ -118,11 +122,14 @@ int _strcmp(const char *s1, const char *s2)
  */
 char *_strdup(const char *s)
 {
+	size_t len;
+	char *dup;
+
 	if (s == NULL)
 		return (NULL);
 
-	size_t len = _strlen(s) + 1;
-	char *dup = malloc(len);
+	len = _strlen(s) + 1;
+	dup = malloc(len);
 
 	if (dup != NULL)
 	{

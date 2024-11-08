@@ -15,11 +15,17 @@ char **token(const char *input)
 
 	len = _strlen(input);
 	str = malloc(sizeof(char) * (len + 1));
+	if (str == NULL)
+		return (NULL);
+
+	arr = malloc(sizeof(char *));
 	if (arr == NULL)
 	{
 		free(str);
 		return (NULL);
 	}
+
+	_strcpy(str, input);
 	word = strtok(str, delim);
 	for (i = 0; word != NULL; i++)
 	{
@@ -29,14 +35,24 @@ char **token(const char *input)
 			free(str);
 			return (NULL);
 		}
+
+		arr[i] = malloc((_strlen(word) + 1) * sizeof(char));
+		if (arr[i] == NULL)
+		{
+			free(str);
+			return (NULL);
+		}
+
 		_strcpy(arr[i], word);
-		word = strtok(NULL, delim);
 	}
+
 	if (i == 0)
 	{
 		free(arr);
+		free(str);
 		return (NULL);
 	}
+
 	arr[i] = NULL;
 	free(str);
 	return (arr);
