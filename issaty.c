@@ -1,4 +1,7 @@
 #include "shell.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <unistd.h>
 
 /**
  * not_issaty - Non - interactive mode of the shell/
@@ -23,15 +26,11 @@ int not_issaty(char **env)
 
 	while ((nread = getline(&input, &len, stdin)) != -1)
 	{
-		if (nread == 0)
-			break;
-
-		/**
-		 * char **cmd = token(input);
-		 */
+		cmd = token(input);
 
 		exit_status = handle_command(cmd, env, &exit_status);
-		cleanup(cmd, input);
+
+		free_cmd_arg(cmd);
 
 		input = NULL;
 		len = 0;

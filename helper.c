@@ -13,19 +13,20 @@ int _atoi(char *s)
 	int sign = 1, i = 0;
 	unsigned int res = 0;
 
-	while (!(s[i] <= '9' && s[i] >= '0') && s[i] != '\0')
+	while (s[i] != '\0' && (s[i] < '0' || s[i] > '9'))
 	{
 		if (s[i] == '-')
 			sign *= -1;
 		i++;
 	}
-	while (s[i] <= '9' && (s[i] >= '0' && s[i] != '\0'))
+
+	while (s[i] >= '0' && s[i] <= '9')
 	{
 		res = (res * 10) + (s[i] - '0');
 		i++;
 	}
-	res *= sign;
-	return (res);
+
+	return (sign * res);
 }
 
 /**
@@ -37,40 +38,28 @@ int _atoi(char *s)
 
 void *_realloc(void *ptr, size_t new_size)
 {
-	size_t *old_size_ptr, old_size, copy_size;
 	void *new_ptr;
 
 	if (ptr == NULL)
 	{
-		return (malloc(new_size));
+		return malloc(new_size);
 	}
 
 	if (new_size == 0)
 	{
 		free(ptr);
-		return (NULL);
+		return NULL;
 	}
-
-	old_size_ptr = (size_t *)ptr - 1;
-	old_size = *old_size_ptr;
 
 	new_ptr = malloc(new_size);
 	if (new_ptr == NULL)
 	{
-		return (ptr);
+		return NULL;
 	}
 
-	if (new_size < old_size)
-	{
-		copy_size = new_size;
-	}
-	else
-	{
-		copy_size = old_size;
-	}
-
-	memcpy(new_ptr, ptr, copy_size);
+	memcpy(new_ptr, ptr, new_size);
 
 	free(ptr);
-	return (new_ptr);
+
+	return new_ptr;
 }

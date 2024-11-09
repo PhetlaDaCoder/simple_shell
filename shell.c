@@ -1,4 +1,6 @@
 #include "shell.h"
+#include <stdlib.h>
+#include <unistd.h>
 
 /**
  * main - main program
@@ -23,22 +25,24 @@ int main(int ac, char **av, char **env)
 	{
 		return (not_issaty(env));
 	}
-	input = NULL;
+
 	while (1)
 	{
-		nread = prompt(&input, len);
+		nread = prompt(&input, &len);
+		if (nread == -1)
+		{
+			free(input);
+			break;
+		}
+
 		cmd = token(input);
 		if (cmd == NULL)
 		{
 			free(input);
 			continue;
 		}
-		if (nread == 0)
-		{
-			free(input);
-			break;
-		}
-		else if (_strcmp(cmd[0], "exit") == 0)
+
+		if (_strcmp(cmd[0], "exit") == 0)
 		{
 			exit_status = exit_(cmd[1]);
 			if (exit_status != -1)
@@ -63,5 +67,6 @@ int main(int ac, char **av, char **env)
 		}
 		free_cmd_arg(cmd);
 	}
-	return (0);
+	free(input);
+	return (exit_status);
 }

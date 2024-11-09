@@ -15,7 +15,7 @@ char *_getenv(const char *env_var)
 
 	for (env = environ; *env != NULL; env++)
 	{
-		if (strncmp(env_var, *env, var_leng) == 0 && (*env)[var_leng] == '+')
+		if (strncmp(env_var, *env, var_leng) == 0 && (*env)[var_leng] == '=')
 		{
 			return (&(*env)[var_leng + 1]);
 		}

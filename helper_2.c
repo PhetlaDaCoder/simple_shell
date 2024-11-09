@@ -33,24 +33,18 @@ int _strlen(const char *s)
  */
 char *_strcpy(char *dest, const char *src)
 {
-	size_t src_len;
-	char *dest_ptr;
+	size_t i;
 
 	if (dest == NULL || src == NULL)
 		return (NULL);
 
-	src_len = _strlen(src);
-	dest_ptr = dest;
-
-	if (src_len >= BUFFER_SIZE)
-		return (NULL);
-
-	while ((*dest++ = *src++) != '\0')
+	for (i = 0; src[i] != '\0'; i++)
 	{
-		if ((size_t)(dest - dest_ptr) >= BUFFER_SIZE)
-			return (NULL);
+		dest[i] = src[i];
 	}
-	return (dest_ptr);
+	dest[i] = '\0';
+
+	return (dest);
 }
 
 /**
@@ -72,6 +66,7 @@ char *_strcat(char *dest, const char *src)
 	}
 
 	ptr = dest;
+
 	while (*ptr != '\0')
 	{
 		ptr++;
@@ -79,12 +74,10 @@ char *_strcat(char *dest, const char *src)
 
 	while (*src != '\0')
 	{
-		*ptr = *src;
-		ptr++;
-		src++;
+		*ptr++ = *src++;
 	}
-
 	*ptr = '\0';
+
 	return (dest);
 }
 

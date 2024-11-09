@@ -15,9 +15,11 @@ int exit_(char *status)
 	}
 	else
 	{
-		return (_atoi(status));
+		int exit_status = _atoi(status);
+		if (exit_status < 0)
+			return (-1);
+		return (exit_status);
 	}
-	return (-1);
 }
 
 /**
@@ -32,12 +34,15 @@ void printenv(char **env)
 	char *env_var;
 
 	env_var = env[i];
-	while (env_var != NULL)
+	
+	if (env == NULL)
+		return;
+
+	while ((env_var = env[i]) != NULL)
 	{
 		write(STDOUT_FILENO, env_var, _strlen(env_var));
 		write(STDOUT_FILENO, "\n", 1);
 		i++;
-		env_var = env[i];
 	}
 }
 
@@ -49,9 +54,11 @@ void printenv(char **env)
  */
 void error(const char *message, char *av)
 {
-	write(STDERR_FILENO, av, _strlen(av));
-	write(STDERR_FILENO, ": ", 2);
-	write(STDERR_FILENO, message, _strlen(message));
+	if (av)
+	{
+		write(STDOUT_FILENO, av, _strlen(av));
+		write(STDERR_FILENO, ": ", 2);
+	}
 	write(STDERR_FILENO, "\n", 1);
 }
 
@@ -64,6 +71,9 @@ void error(const char *message, char *av)
 void free_cmd_arg(char **arr)
 {
 	int i;
+
+	if (arr == NULL)
+		return;
 
 	for (i = 0; arr[i] != NULL; i++)
 	{

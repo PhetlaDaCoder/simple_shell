@@ -1,4 +1,9 @@
 #include "shell.h"
+#include <unistd.h>
+#include <sys/wait.h>
+#include <sys/types.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 /**
  * exec - A function that executes commands
@@ -11,9 +16,10 @@ int exec(char **argv)
 	char *command = NULL, *command_path = NULL;
 	pid_t pid;
 	int status;
-	char *const env[] = {NULL};
 
-	if (argv)
+	extern char **environ;
+
+	if (argv && argv[0])
 	{
 		command = argv[0];
 		command_path = location(command);
@@ -33,7 +39,7 @@ int exec(char **argv)
 
 		if (pid == 0)
 		{
-			if (execve(command_path, argv, env) == -1)
+			if (execve(command_path, argv, environ) == -1)
 			{
 				perror("execve");
 				_exit(EXIT_FAILURE);
